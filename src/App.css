@@ -3,11 +3,57 @@ body{
     color: white;
 }
 
-.tarea{
-    border: 1px white solid;
-    padding: 2px;
-    margin: 2px;
+button{
+    transition: 0.1s;
+    padding: 4px;
+    border-radius: 5px;
 }
+
+.createButton{
+    background-color: lightgreen;
+}
+
+.removeButton{
+    background-color: red;
+    color: white;
+}
+
+.custom-select{
+    background-color: DodgerBlue;
+}
+
+.botones{
+    display: flex;
+    flex-direction: row; 
+    border-radius: 5px;
+}
+
+button:hover{
+    transition: 0.5s;
+    scale: 110%;
+}
+
+.tarea{
+    border: 1px rgba(255, 255, 255, 0.742) solid;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 10px;   
+    overflow: auto;
+    min-height: 300px;
+    -webkit-box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
+    -moz-box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
+    box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
+}
+
+
+.subTarea{
+    border: 1px rgba(255, 255, 255, 0.165) solid;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 10px;   
+    color: rgba(255, 255, 255, 0.384);
+}
+
 
 .inputForm{
     display: flex;
@@ -15,4 +61,33 @@ body{
     align-items: center;
     padding: 3px;
     gap: 2px;
+}
+
+
+.container{
+    width: 75%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.taskBox{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: 400px;
+   
+
+}
+
+
+@media (max-width: 1200px) {
+    .taskBox {
+        grid-template-columns: 50% 50%;
+    }
+  }
+
+@media (max-width: 800px) {
+.taskBox {
+    grid-template-columns: auto;
+}
 }

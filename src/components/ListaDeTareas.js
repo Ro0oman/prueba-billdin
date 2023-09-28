@@ -99,25 +99,51 @@ export default function ListaDeTareas() {
 
 
     return (
-        <div>
+        <div >
             <div>
-                <button onClick={handleCreate}>
+                <button className="createButton" onClick={handleCreate}>
                     Create Taks
                 </button>
             </div>
-            {tareas.map(({ id, titulo, notas, estado, subtareas }) =>
-                <div key={id} className="tarea">
-                    <Tarea
-                        titulo={titulo}
-                        notas={notas}
-                    />
-                    {subtareas.length > 0 && subtareas.map(({ id, titulo, notas, estado, subtareas }) =>
-                        <div key={id} >
-                            <Tarea
-                                titulo={titulo}
-                                notas={notas}
-                            />
-                            <select value={estado} onChange={e => {
+            <div className="taskBox">
+                {tareas.map(({ id, titulo, notas, estado, subtareas }) =>
+                    <div key={id} className="tarea">
+                        <Tarea
+                            titulo={titulo}
+                            notas={notas}
+                        />
+                        {subtareas.length > 0 && subtareas.map(({ id, titulo, notas, estado, subtareas }) =>
+                            <div key={id} className="subTarea" >
+
+                                <Tarea
+                                    titulo={titulo}
+                                    notas={notas}
+                                />
+
+                                <div className="botones">
+                                    <select className="custom-select" value={estado} onChange={e => {
+                                        handleChange(id, e)
+                                    }}>
+                                        <option value="0">Por hacer</option>
+                                        <option value="1">En curso</option>
+                                        <option value="2">Finalizada</option>
+                                    </select>
+                                    <button className="removeButton" onClick={() => {
+                                        handleRemove(id)
+                                    }}>Eliminar</button>
+                                    <button onClick={() => {
+                                        handleEdit(id)
+                                    }}>Editar</button>
+                                    <button onClick={() => {
+                                        handleAddSubTask(id)
+                                    }}>Agregar Subtarea</button>
+                                </div>
+
+                            </div>
+                        )}
+
+                        <div className="botones">
+                            <select className="custom-select" value={estado} onChange={e => {
                                 handleChange(id, e)
                             }}>
                                 <option value="0">Por hacer</option>
@@ -134,25 +160,9 @@ export default function ListaDeTareas() {
                                 handleAddSubTask(id)
                             }}>Agregar Subtarea</button>
                         </div>
-                    )}
-                    <select value={estado} onChange={e => {
-                        handleChange(id, e)
-                    }}>
-                        <option value="0">Por hacer</option>
-                        <option value="1">En curso</option>
-                        <option value="2">Finalizada</option>
-                    </select>
-                    <button onClick={() => {
-                        handleRemove(id)
-                    }}>Eliminar</button>
-                    <button onClick={() => {
-                        handleEdit(id)
-                    }}>Editar</button>
-                    <button onClick={() => {
-                        handleAddSubTask(id)
-                    }}>Agregar Subtarea</button>
-                </div>
-            )}
+                    </div>
+                )}
+            </div>
         </div>
     )
 }

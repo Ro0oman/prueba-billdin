@@ -6,8 +6,8 @@ export default function Tarea({ titulo, notas}) {
             <div>
             </div>
             <div>
-                <h1>Titulo:{titulo}</h1>
-                <p>Notas:{notas}</p>
+                <h1>{titulo}</h1>
+                <p>{notas}</p>
             </div>
         </div>
     )
