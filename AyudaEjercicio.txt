@@ -11,29 +11,11 @@ Crear una caja(componente) bonita que tenga los siguientes campos
 	Boton de editar tarea para la tarea X 
 	Añadir selector de estado de la tarea
 
-Añadir boton de Crear tarea generico(Puede abrir un modal para añadir los datos de la tarea)
+Crear funcionalidad de editar la tarea sea sub tarea o tarea normal
+Lo mismo con la de borrado
+Poder agregar subtareas solo en una tarea
 
-Cada tarea será un Objeto JSON 
+Si una subtarea esta sin completar la padre no se puede completar
+Si todas las subtareas están finalizadas, el estado de la tarea que las contiene deberá ser  finalizada
 
-Tarea:{
-	Titulo:"Hola soy un titulo",
-	Notas:"Hola soy las notas",
-	Estado:0(Por hacer), 1(En curso), 2(Finalizada)  asi compruebo si la Tarea.Estado != 0,
-	Subtareas: {
-		Tarea:{
-			Titulo:"Hola soy un titulo",
-			Notas:"Hola soy las notas",
-			Estado:0(Por hacer), 1(En curso), 2(Finalizada) asi compruebo si la Tarea.Estado != 0,
-		},
-		Tarea:{
-			Titulo:"Hola soy un titulo",
-			Notas:"Hola soy las notas",
-			Estado:0(Por hacer), 1(En curso), 2(Finalizada) asi compruebo si la Tarea.Estado != 0,
-		},
-		Tarea:{
-			Titulo:"Hola soy un titulo",
-			Notas:"Hola soy las notas",
-			Estado:0(Por hacer), 1(En curso), 2(Finalizada) asi compruebo si la Tarea.Estado != 0,
-		},
-	}
-}
+Maquetar y hacer bonita la pagina

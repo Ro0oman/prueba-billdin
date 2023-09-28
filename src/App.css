@@ -8,3 +8,11 @@ body{
     padding: 2px;
     margin: 2px;
 }
+
+.inputForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px;
+    gap: 2px;
+}
