@@ -1,0 +1,10 @@
+body{
+    background-color: #160C28;
+    color: white;
+}
+
+.tarea{
+    border: 1px white solid;
+    padding: 2px;
+    margin: 2px;
+}

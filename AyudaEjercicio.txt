@@ -1,0 +1,40 @@
+Crear una caja(componente) bonita que tenga los siguientes campos
+	Titulo -> Input text
+	Notas -> Input text mas grande y redimensionable
+	Estado -> Select desplegable (Por hacer, En curso, Finalizada)
+		Si la tarea tiene Subtareas y el estado de las subtareas es != 0  el estado de la Tarea es en curso 
+		sinó será Finalizada
+
+	Subtareas -> Añadir un boton de Agregar subtarea dentro de la caja tarea
+
+	Boton de eliminar tarea para la tarea X 
+	Boton de editar tarea para la tarea X 
+	Añadir selector de estado de la tarea
+
+Añadir boton de Crear tarea generico(Puede abrir un modal para añadir los datos de la tarea)
+
+
+Cada tarea será un Objeto JSON 
+
+Tarea:{
+	Titulo:"Hola soy un titulo",
+	Notas:"Hola soy las notas",
+	Estado:0(Por hacer), 1(En curso), 2(Finalizada)  asi compruebo si la Tarea.Estado != 0,
+	Subtareas: {
+		Tarea:{
+			Titulo:"Hola soy un titulo",
+			Notas:"Hola soy las notas",
+			Estado:0(Por hacer), 1(En curso), 2(Finalizada) asi compruebo si la Tarea.Estado != 0,
+		},
+		Tarea:{
+			Titulo:"Hola soy un titulo",
+			Notas:"Hola soy las notas",
+			Estado:0(Por hacer), 1(En curso), 2(Finalizada) asi compruebo si la Tarea.Estado != 0,
+		},
+		Tarea:{
+			Titulo:"Hola soy un titulo",
+			Notas:"Hola soy las notas",
+			Estado:0(Por hacer), 1(En curso), 2(Finalizada) asi compruebo si la Tarea.Estado != 0,
+		},
+	}
+}

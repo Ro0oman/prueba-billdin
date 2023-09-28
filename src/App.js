@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import { toHaveFormValues } from '@testing-library/jest-dom/matchers';
+import Tarea from './components/Tarea';
 
 function App() {
+  const [tareas, updateTareas] = useState([
+    {
+      "titulo":"Renderizar Objeto con tareas",
+      "id":0,
+      "notas":"Cargar el objeto tareas con un map en el fichero App",
+      "estado":1,
+    },{
+      "titulo":"Hola soy un titulo",
+      "id":1,
+      "notas":"Hola soy las notas",
+      "estado":0,
+    },
+    
+  ])
   return (
     <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-
-
-      </header>
+      {
+        tareas.map(obj =><Tarea key={obj.id} titulo={obj.titulo} notas={obj.notas} estado={obj.estado} />)
+      }
     </div>
   );
 }
