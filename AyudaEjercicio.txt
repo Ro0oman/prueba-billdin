@@ -13,7 +13,6 @@ Crear una caja(componente) bonita que tenga los siguientes campos
 
 Añadir boton de Crear tarea generico(Puede abrir un modal para añadir los datos de la tarea)
 
-
 Cada tarea será un Objeto JSON 
 
 Tarea:{
