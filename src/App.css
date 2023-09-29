@@ -8,7 +8,29 @@ button{
     transition: 0.1s;
     padding: 10px;
     border-radius: 5px;
-    font-size: 17px;
+    font-size: 13px;
+}
+
+.custom-select{
+    background-color: DodgerBlue;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.inputText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    gap: 10px;
+}
+
+.input{
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .addbutton{
@@ -40,9 +62,7 @@ button{
     color: black;
 }
 
-.custom-select{
-    background-color: DodgerBlue;
-}
+
 
 .botones{
     display: flex;
@@ -53,17 +73,18 @@ button{
 
 button:hover{
     transition: 0.5s;
-    scale: 110%;
+    scale: 105%;
 }
 
 .tarea{
+    background-color: #231341;
     border: 1px rgba(255, 255, 255, 0.742) solid;
     padding: 8px;
     margin: 8px;
     border-radius: 10px;   
     overflow: auto;
     min-height: 300px;
-    -webkit-box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
+    -webkit-box-shadow: 10px 10px 14px -5px rgb(54, 53, 53);
     -moz-box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
     box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
 }

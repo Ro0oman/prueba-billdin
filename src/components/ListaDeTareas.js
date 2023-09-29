@@ -9,27 +9,6 @@ export default function ListaDeTareas() {
             notas: "Cargar el objeto tareas con un map en el fichero App",
             estado: 2,
             subtareas: [
-                // {
-                //     subtarea: true,
-                //     titulo: "subtarea1",
-                //     id: 0,
-                //     notas: "tareaFake",
-                //     estado: 0,
-                // },
-                // {
-                //     subtarea: true,
-                //     titulo: "subtarea2",
-                //     id: 1,
-                //     notas: "tareaFake",
-                //     estado: 0,
-                // },
-                // {
-                //     subtarea: true,
-                //     titulo: "subtarea3",
-                //     id: 2,
-                //     notas: "tareaFake",
-                //     estado: 0,
-                // }
             ]
         }, {
             titulo: "Poder eliminar Tareas",
@@ -37,8 +16,17 @@ export default function ListaDeTareas() {
             id: 1,
             notas: "Añadir funcionalidad de eliminar la tarea",
             estado: 2,
-            subtareas: []
-        }, {
+            subtareas: [
+                {
+                    subtarea: true,
+                    titulo: "Arreglar bugs menores",
+                    id: 0,
+                    notas: "",
+                    estado: 2,
+                }
+            ]
+        }, 
+        {
             titulo: "Añadir funcionalidad de editar la tarea",
             subtarea: false,
             id: 2,
@@ -53,26 +41,57 @@ export default function ListaDeTareas() {
             notas: "",
             estado: 1,
             subtareas: []
+        },{
+            titulo: "Editar tareas",
+            subtarea: false,
+            id: 4,
+            notas: "Con un formulario dinamico",
+            estado: 1,
+            subtareas: []
+        },{
+            titulo: "Editar subtareas",
+            subtarea: false,
+            id: 5,
+            notas: "Con un formulario dinamico",
+            estado: 1,
+            subtareas: []
+        },{
+            titulo: "Controlar estados",
+            subtarea: false,
+            id: 6,
+            notas: "Cuando una tarea esta En proceso sus subtareas igual y lo mismo cuando se completa",
+            estado: 1,
+            subtareas: []
         },
 
     ])
     const [maxId, updatedMax] = useState(tareas.length)
-    const [newTask, updatednewTask] = useState(false)
+    const [newTask, updatednewTask] = useState(true)
+    const [titulo, updateTitulo] = useState()
+    const [nota, updateNota] = useState()
+    const [estado, updateEstado] = useState()
 
 
     // Crear la tarea
     function addTask() {
+        updatednewTask(true)
+    }
+
+    function handleCreate() {
         let maxCopia = maxId
         updatedMax(++maxCopia)
         const tareaFake = {
-            titulo: "tareaFake",
+            titulo: titulo,
             id: maxId,
-            notas: "tareaFake",
-            estado: 0,
-            subtareas: {}
+            notas: nota,
+            estado: estado,
+            subtareas: []
         }
         const newList = tareas.concat(tareaFake);
         updateTareas(newList);
+        updatednewTask(true)
+        updateTitulo()
+        updateNota()
     }
 
     // Eliminar la tarea
@@ -82,13 +101,13 @@ export default function ListaDeTareas() {
     }
 
     function handleRemoveSubTarea(idPadre, idHijo) {
-        
+
         tareas.forEach((tarea, posicion) => {
-            if(tarea.id == idPadre){
+            if (tarea.id == idPadre) {
                 {
                     tarea.subtareas.forEach((hijo) => {
                         if (hijo.id === idHijo) {
-                            let newList = [... tareas]
+                            let newList = [...tareas]
                             let result = tareas[posicion].subtareas.filter((item) => item.id !== idHijo);
                             newList[posicion].subtareas = result;
                             updateTareas(newList);
@@ -106,13 +125,13 @@ export default function ListaDeTareas() {
             notas: "Notas de prueba hola hola hola",
             estado: 1,
         }
-        let newList = [... tareas]
-        newList.forEach((item)=>{
-            if(item.id == id){
+        let newList = [...tareas]
+        newList.forEach((item) => {
+            if (item.id == id) {
                 item.titulo = obj.titulo
                 item.notas = obj.notas
             }
-        })  
+        })
         updateTareas(newList);
     }
 
@@ -122,23 +141,23 @@ export default function ListaDeTareas() {
             notas: "Notas de prueba hola hola hola",
             estado: 1,
         }
-        let newList = [... tareas]
-        newList.forEach((item)=>{
-            if(item.id == idPadre){
-                item.subtareas.forEach((itemHijo)=>{
-                    if(itemHijo.id == idHijo){
+        let newList = [...tareas]
+        newList.forEach((item) => {
+            if (item.id == idPadre) {
+                item.subtareas.forEach((itemHijo) => {
+                    if (itemHijo.id == idHijo) {
                         itemHijo.titulo = obj.titulo
                         itemHijo.notas = obj.notas
                     }
-                })  
+                })
             }
-        })  
+        })
         updateTareas(newList);
     }
 
     function getMax(arr, prop) {
         var max;
-        for (var i=0 ; i<arr.length ; i++) {
+        for (var i = 0; i < arr.length; i++) {
             if (max == null || parseInt(arr[i][prop]) > parseInt(max[prop]))
                 max = arr[i];
         }
@@ -147,7 +166,7 @@ export default function ListaDeTareas() {
 
     // Añadir subTarea tarea
     function handleAddSubTask(id) {
-        var maxId;      
+        var maxId;
         const tareaFake = {
             titulo: "tareaFake",
             id: 0,
@@ -155,19 +174,19 @@ export default function ListaDeTareas() {
             estado: 0,
             subtareas: {}
         }
-        let newList = [... tareas]
-        newList.forEach((item)=>{
-            if(item.id == id){
-                if(item.subtareas.length == 0){
-                    item.subtareas.push(tareaFake) 
-                }else{    
-                    maxId = getMax(item.subtareas, "id");   
+        let newList = [...tareas]
+        newList.forEach((item) => {
+            if (item.id == id) {
+                if (item.subtareas.length == 0) {
+                    item.subtareas.push(tareaFake)
+                } else {
+                    maxId = getMax(item.subtareas, "id");
                     tareaFake.id = maxId.id
                     tareaFake.id++
                     item.subtareas.push(tareaFake)
-                }   
+                }
             }
-        })  
+        })
         updateTareas(newList);
     }
 
@@ -191,17 +210,37 @@ export default function ListaDeTareas() {
         <div >
             <div className="taskBox">
                 {newTask == true &&
-                    <div className="tarea" >
-                    <Tarea
-                        titulo="Hola"
-                        notas="Probando"
-                    />
-                </div>
+                    <div className="tarea">
+                        <div className="inputText">
+                            <label>Titulo:</label>
+                            <input 
+                            value={titulo}
+                            onChange={(e) => updateTitulo(e.target.value)} 
+                            className="input"></input>
+                            <label>Notas:</label>
+                            <textarea 
+                            value={nota}
+                            onChange={(e) => updateNota(e.target.value)} 
+                            className="input"></textarea>
+                            <label>Estado de la Tarea:</label>
+                            <select className="custom-select"
+                            value={estado}
+                            onChange={(e) => updateEstado(e.target.value)} >
+                                <option value="0">Por hacer</option>
+                                <option value="1">En curso</option>
+                                <option value="2">Finalizada</option>
+                            </select>
+                            <button className="createButton" onClick={handleCreate}>
+                                Create Taks
+                            </button>
+                        </div>
+
+                    </div>
                 }
                 {newTask == false &&
-                    <div className="tarea addbutton buttonBox" onClick={addTask} >
+                    <button className="tarea addbutton buttonBox" onClick={addTask} >
                         +
-                    </div>
+                    </button>
                 }
                 {tareas.map(({ id, titulo, notas, estado, subtareas }) =>
                     <div key={id} className="tarea">
@@ -227,12 +266,12 @@ export default function ListaDeTareas() {
                                     </select>
                                     <button className="removeButton" onClick={() => {
                                         handleRemoveSubTarea(id, subtarea.id)
-                                    }}> <i class="fa fa-trash" aria-hidden="true"></i> 
-                                    Eliminar</button>
+                                    }}> <i className="fa fa-trash" aria-hidden="true"></i>
+                                        Eliminar</button>
                                     <button className="editButton" onClick={() => {
-                                        handleEditSubTarea(id,subtarea.id)
-                                    }}> <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    Editar</button>
+                                        handleEditSubTarea(id, subtarea.id)
+                                    }}> <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        Editar</button>
                                 </div>
 
                             </div>
@@ -248,16 +287,16 @@ export default function ListaDeTareas() {
                             </select>
                             <button className="removeButton" onClick={() => {
                                 handleRemove(id)
-                            }}> <i class="fa fa-trash" aria-hidden="true"> </i> 
-                            Eliminar</button>
+                            }}> <i className="fa fa-trash" aria-hidden="true"> </i>
+                                Eliminar</button>
                             <button className="editButton" onClick={() => {
                                 handleEdit(id)
-                            }}> <i class="fa fa-pencil" aria-hidden="true"></i>
-                            Editar</button>
+                            }}> <i className="fa fa-pencil" aria-hidden="true"></i>
+                                Editar</button>
                             <button onClick={() => {
                                 handleAddSubTask(id)
-                            }}> <i class="fa fa-plus" aria-hidden="true"></i>
-                            Agregar Subtarea</button>
+                            }}> <i className="fa fa-plus" aria-hidden="true"></i>
+                                Agregar Subtarea</button>
                         </div>
                     </div>
                 )}
