@@ -1,12 +1,29 @@
 body{
     background-color: #160C28;
     color: white;
+    font-family: 'Onest', sans-serif;
 }
 
 button{
     transition: 0.1s;
-    padding: 4px;
+    padding: 10px;
     border-radius: 5px;
+    font-size: 17px;
+}
+
+.addbutton{
+    font-size: 100px;
+}
+
+.buttonBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.buttonBox:hover{
+    cursor: pointer;
 }
 
 .createButton{
@@ -18,6 +35,11 @@ button{
     color: white;
 }
 
+.editButton{
+    background-color: lightgreen;
+    color: black;
+}
+
 .custom-select{
     background-color: DodgerBlue;
 }
@@ -26,6 +48,7 @@ button{
     display: flex;
     flex-direction: row; 
     border-radius: 5px;
+    
 }
 
 button:hover{
@@ -65,7 +88,7 @@ button:hover{
 
 
 .container{
-    width: 75%;
+    width: 85%;
     margin: auto;
     display: flex;
     flex-direction: column;
