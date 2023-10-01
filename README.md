@@ -1,6 +1,10 @@
 # Aviso
 Antes de nada comentar que este proyecto ha sido realizado en aproximadamente 20-24hrs sin ningun conocimiento previo de React y con una fecha limite de 5 dias, por lo cual espero que se pueda valorar el resultado final teniendo en cuenta el tiempo requerido para realizar la prueba asi como los conocimientos previos con el framework.
 
+Cosas que me han faltado hacer
+1. Documentar correctamente el codigo
+2. Generar una estructura mucho mas organizada de las funciones
+3. Refactorizar el codigo
 
 ## Available Scripts
 
