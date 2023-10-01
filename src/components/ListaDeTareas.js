@@ -5,7 +5,14 @@ export default function ListaDeTareas() {
         {
             titulo: "Editar Tareas",
             id: 6,
-            notas: "Poder editar las subtareas y sus subestados",
+            notas: "Cambiar funciones de editar subtarea para esconder formularios y cosas",
+            estado: 1,
+            editando: false,
+            subtareas: []
+        },{
+            titulo: "Probar a hacer las cajas grandes cuando esté editando o dejando de editar con estilos personalizados",
+            id: 7,
+            notas: "",
             estado: 1,
             editando: false,
             subtareas: []
@@ -108,6 +115,7 @@ export default function ListaDeTareas() {
     }
 
     function handleEditSubTarea(idPadre, idHijo) {
+        updateEditandoSubtarea(true)
         let obj = {
             titulo: "Objeto editado",
             notas: "Notas de prueba hola hola hola",
@@ -210,6 +218,7 @@ export default function ListaDeTareas() {
         updateTareas(newList);
         updateErrorEditar('')
         updateEditando(false)
+        updateEditandoSubtarea(false)
     }
 
     return (
