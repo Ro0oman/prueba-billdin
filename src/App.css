@@ -33,7 +33,13 @@ button{
     padding: 10px;
 }
 
+.cancelButton{
+    position: relative;
+    right: 0px;
+}
+
 .addbutton{
+    
     font-size: 100px;
 }
 
@@ -68,7 +74,9 @@ button{
     display: flex;
     flex-direction: row; 
     border-radius: 5px;
-    
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;   
 }
 
 button:hover{
@@ -81,9 +89,10 @@ button:hover{
     border: 1px rgba(255, 255, 255, 0.742) solid;
     padding: 8px;
     margin: 8px;
-    border-radius: 10px;   
+    border-radius: 10px; 
+    max-height: 400px;  
     overflow: auto;
-    min-height: 300px;
+    min-height: 400px;
     -webkit-box-shadow: 10px 10px 14px -5px rgb(54, 53, 53);
     -moz-box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
     box-shadow: 10px 10px 14px -5px rgba(87,87,87,1);
@@ -100,6 +109,7 @@ button:hover{
 
 
 .inputForm{
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -109,18 +119,16 @@ button:hover{
 
 
 .container{
-    width: 85%;
-    margin: auto;
+    width: 95%;
     display: flex;
     flex-direction: column;
+    margin: auto; 
 }
 
 .taskBox{
+    width: 100%;
     display: grid;
-    grid-template-columns: 30% 30% 30%;
-    grid-template-rows: 400px;
-   
-
+    grid-template-columns: 33% 33% 33%;
 }
 
 
