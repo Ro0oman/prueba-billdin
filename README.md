@@ -3,7 +3,7 @@ Antes de nada comentar que este proyecto ha sido realizado en aproximadamente 16
 
 Cosas que me han faltado hacer
 1. Documentar correctamente el codigo
-2. Generar una estructura mucho mas organizada de las funciones
+2. Generar una estructura mucho mas organizada de las funciones(Juntar funciones que pueden tener codigo repetido en una funcion unica que sea polimorfica)
 3. Refactorizar el codigo
 
 ## Available Scripts
