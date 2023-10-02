@@ -5,7 +5,7 @@ body{
 }
 
 button{
-    transition: 0.1s;
+    transition: 0.2s;
     padding: 10px;
     border-radius: 5px;
     font-size: 13px;
@@ -74,14 +74,16 @@ button{
     display: flex;
     flex-direction: row; 
     border-radius: 5px;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
     margin: auto;   
 }
 
 button:hover{
+    cursor: pointer;
     transition: 0.5s;
     scale: 105%;
+    border: 1px solid grey;
 }
 
 .tarea{
@@ -90,7 +92,7 @@ button:hover{
     padding: 8px;
     margin: 8px;
     border-radius: 10px; 
-    max-height: 400px;  
+    max-height: 600px;  
     overflow: auto;
     min-height: 400px;
     -webkit-box-shadow: 10px 10px 14px -5px rgb(54, 53, 53);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tarea from "./Tarea";
 export default function ListaDeTareas() {
     const [tareas, updateTareas] = useState([
@@ -6,30 +6,41 @@ export default function ListaDeTareas() {
             titulo: "Editar Tareas",
             id: 6,
             notas: "Cambiar funciones de editar subtarea para esconder formularios y cosas",
-            estado: 1,
-            editando: false,
-            subtareas: []
+            estado: 0,
+            subtareas: [{
+                titulo: "Subtarea1",
+                id: 8,
+                notas: "",
+                editando:false,
+                estado: 1,
+                subtareas: []
+            }]
         },{
-            titulo: "Probar a hacer las cajas grandes cuando esté editando o dejando de editar con estilos personalizados",
+            titulo: "Editar Tareas",
             id: 7,
-            notas: "",
-            estado: 1,
-            editando: false,
-            subtareas: []
+            notas: "Cambiar funciones de editar subtarea para esconder formularios y cosas",
+            estado: 0,
+            subtareas: [{
+                titulo: "Subtarea2",
+                id: 8,
+                notas: "",
+                editando:false,
+                estado: 1,
+                subtareas: []
+            }]
         },
     ])
     const [maxId, updatedMax] = useState(tareas.length)
     const [newTask, updatednewTask] = useState(false)
-    const [titulo, updateTitulo] = useState()
-    const [tituloCopia, updateTituloCopia] = useState()
-    const [nota, updateNota] = useState()
-    const [notaCopia, updateNotaCopia] = useState()
-    const [estado, updateEstado] = useState()
-    const [estadoCopia, updateEstadoCopia] = useState()
+    const [titulo, updateTitulo] = useState("")
+    const [tituloCopia, updateTituloCopia] = useState("")
+    const [nota, updateNota] = useState("")
+    const [notaCopia, updateNotaCopia] = useState("")
+    const [estado, updateEstado] = useState("")
+    const [estadoCopia, updateEstadoCopia] = useState("")
     const [editando, updateEditando] = useState(false)
     const [editandoSubtarea, updateEditandoSubtarea] = useState(false)
-    const [errorEditar, updateErrorEditar] = useState()
-
+    const [errorEditar, updateErrorEditar] = useState("")
 
     // Crear la tarea
     function addTask() {
@@ -43,7 +54,7 @@ export default function ListaDeTareas() {
             titulo: titulo,
             id: maxId,
             notas: nota,
-            estado: estado,
+            estado: 0,
             subtareas: []
         }
         const newList = tareas.concat(tareaFake);
@@ -95,6 +106,7 @@ export default function ListaDeTareas() {
         } else {
             updateErrorEditar('No se puede editar 2 tareas simultaneamente')
         }
+        handleChange(id)
     }
 
     // Completar edicion de la tarea
@@ -112,35 +124,40 @@ export default function ListaDeTareas() {
         updateErrorEditar('')
         updateEditando(false)
         updateTareas(newList);
+        handleChange(id)
     }
 
-    function handleEditSubTarea(idPadre, idHijo) {
-        updateEditandoSubtarea(true)
-        let obj = {
-            titulo: "Objeto editado",
-            notas: "Notas de prueba hola hola hola",
-            estado: 1,
-        }
-        let newList = [...tareas]
-        newList.forEach((item) => {
-            if (item.id == idPadre) {
-                item.subtareas.forEach((itemHijo) => {
-                    if (itemHijo.id == idHijo) {
-                        itemHijo.titulo = obj.titulo
-                        itemHijo.notas = obj.notas
-                    }
-                })
+    function handleEditSubTarea(idPadre, idHijo ,titulo, notas, estado) {
+        if (!editando) {
+            let obj = {
+                editando: true,
             }
-        })
-        updateTareas(newList);
+            let newList = [...tareas]
+            newList.forEach((item) => {
+                if (item.id == idPadre) {
+                    item.subtareas.forEach((itemHijo) => {
+                        if (itemHijo.id == idHijo) {
+                            itemHijo.editando = obj.editando
+                        }
+                    })
+                }
+            })
+            updateTituloCopia(titulo)
+            updateNotaCopia(notas)
+            updateEstadoCopia(estado)
+            updateEditandoSubtarea(true)
+            updateEditando(true)
+        }else {
+            updateErrorEditar('No se puede editar 2 tareas simultaneamente')
+        }
     }
 
 
     function handleEditSubTareaComplete(idPadre, idHijo) {
         let obj = {
-            titulo: "Objeto editado",
-            notas: "Notas de prueba hola hola hola",
-            estado: 1,
+            titulo: tituloCopia,
+            notas: notaCopia,
+            estado: estadoCopia,
         }
         let newList = [...tareas]
         newList.forEach((item) => {
@@ -149,11 +166,18 @@ export default function ListaDeTareas() {
                     if (itemHijo.id == idHijo) {
                         itemHijo.titulo = obj.titulo
                         itemHijo.notas = obj.notas
+                        itemHijo.estado = obj.estado
+                        
                     }
                 })
             }
         })
+        handleChange(idPadre)
         updateTareas(newList);
+        updateEditando(false)
+        updateEditandoSubtarea(false)
+        handleCancel(idPadre, idHijo)
+        handleChange(idPadre)
     }
 
     function getMax(arr, prop) {
@@ -169,9 +193,9 @@ export default function ListaDeTareas() {
     function handleAddSubTask(id) {
         var maxId;
         const tareaFake = {
-            titulo: "tareaFake",
+            titulo: "SubTarea",
             id: 0,
-            notas: "tareaFake",
+            notas: "Notas subtarea",
             estado: 0,
             editando: false,
             subtareas: {}
@@ -192,27 +216,73 @@ export default function ListaDeTareas() {
         updateTareas(newList);
     }
 
+    function checkIfFinished(subtareas){
+        let allSubTasksCompleted = false;
+        subtareas.forEach(subtarea => {
+            if (subtarea.estado==2) {
+                allSubTasksCompleted = true;
+            }else{
+                allSubTasksCompleted = false;
+                return
+            }
+        });
+        return allSubTasksCompleted;
+    }
+
     // Actualizar el estado de la lista cuando se modifica el selector
-    function handleChange(id, e) {
+    function handleChange(id) {
+        let canChange = true;
         const newList = tareas.map((item) => {
             if (item.id === id) {
-                const updatedItem = {
-                    ...item,
-                    estado: e.target.value,
-                };
-                return updatedItem;
+                if(item.subtareas.length>0){
+                    item.subtareas.forEach(element => {
+                        if(element.estado!=2){
+                            canChange = false
+                            return
+                        }else{
+                            canChange = true
+                        }
+                    });
+                }
+                if(checkIfFinished(item.subtareas)){ //Si la funcion devuelve true, todas la subtareas han sido completadas
+                    const updatedItem = {
+                        ...item,
+                        estado: 2,
+                    };
+                    return updatedItem;
+                }else{
+                    const updatedItem = {
+                        ...item,
+                        estado: 1,
+                    };
+                    return updatedItem;
+                }
             }
             return item;
         });
         updateTareas(newList);
     }
 
-    function handleCancel(id) {
+    function handleCancel(id, idHijo) {
+        if(idHijo){
+            let obj = {
+                editando: false,
+            }
+            let newList = [...tareas]
+            newList.forEach((item) => {
+                if (item.id == id) {
+                    item.subtareas.forEach((itemHijo) => {
+                        if (itemHijo.id == idHijo) {
+                            itemHijo.editando = obj.editando
+                        }
+                    })
+                }
+            })
+        }
         let newList = [...tareas]
         newList.forEach((item) => {
             if (item.id == id) {
                 item.editando = false
-                console.log(item.editando);
             }
         })
         updateTareas(newList);
@@ -232,20 +302,14 @@ export default function ListaDeTareas() {
                             <input
                                 value={titulo}
                                 onChange={(e) => updateTitulo(e.target.value)}
-                                className="input"></input>
+                                className="input"
+                                placeholder="Introduce el titulo de tu tarea"></input>
                             <label>Notas:</label>
                             <textarea
                                 value={nota}
                                 onChange={(e) => updateNota(e.target.value)}
-                                className="input"></textarea>
-                            <label>Estado de la Tarea:</label>
-                            <select className="custom-select"
-                                value={estado}
-                                onChange={(e) => updateEstado(e.target.value)} >
-                                <option value="0">Por hacer</option>
-                                <option value="1">En curso</option>
-                                <option value="2">Finalizada</option>
-                            </select>
+                                className="input"
+                                placeholder="Introduce las notas de tu tarea"></textarea>
                             <button className="createButton" onClick={handleCreate}>
                                 Crear Tarea
                             </button>
@@ -274,11 +338,13 @@ export default function ListaDeTareas() {
                                         <input
                                             value={tituloCopia}
                                             onChange={(e) => updateTituloCopia(e.target.value)}
-                                            className="input"></input>
+                                            className="input"
+                                            placeholder="Introduce el titulo de tu tarea"></input>
                                         <label>Notas:</label>
                                         <textarea
                                             value={notaCopia}
                                             onChange={(e) => updateNotaCopia(e.target.value)}
+                                            placeholder="Introduce las notas de tu tarea"
                                             className="input"></textarea>
                                         <label>Estado de la Tarea:</label>
                                         <select className="custom-select"
@@ -300,27 +366,31 @@ export default function ListaDeTareas() {
                             }
                             {subtareas.length > 0 && subtareas.map((subtarea) =>
                                 <div key={subtarea.id} >
-                                    {!editando && <div className="subTarea" >
+                                    {!subtarea.editando && 
+                                    <div className="subTarea" >
                                         <Tarea 
-                                        titulo={subtarea.titulo}
-                                        notas={subtarea.notas}
-                                    />
-                                        </div>}
-                                    {editandoSubtarea &&
+                                            titulo={subtarea.titulo}
+                                            notas={subtarea.notas}
+                                        />
+                                    </div>}
+                                    
+                                    {subtarea.editando &&
                                         <div>
                                             <button className="cancelButton" onClick={() => {
-                                                handleCancel(id)
+                                                handleCancel(id, subtarea.id)
                                             }}>X</button>
                                             <div className="inputText">
                                                 <label>Titulo:</label>
                                                 <input
                                                     value={tituloCopia}
+                                                    placeholder="Introduce el titulo de tu tarea"
                                                     onChange={(e) => updateTituloCopia(e.target.value)}
                                                     className="input"></input>
                                                 <label>Notas:</label>
                                                 <textarea
                                                     value={notaCopia}
                                                     onChange={(e) => updateNotaCopia(e.target.value)}
+                                                    placeholder="Introduce las notas de tu tarea"
                                                     className="input"></textarea>
                                                 <label>Estado de la Tarea:</label>
                                                 <select className="custom-select"
@@ -332,7 +402,7 @@ export default function ListaDeTareas() {
                                                     <option value="2">Finalizada</option>
                                                 </select>
                                                 <button className="createButton" onClick={() => {
-                                                    handleEditComplete(id)
+                                                    handleEditSubTareaComplete(id, subtarea.id)
                                                 }}>
                                                     Editar Tarea
                                                 </button>
@@ -342,20 +412,20 @@ export default function ListaDeTareas() {
                                     }
 
 
-                                    {!editando && <div className="botones">
+                                    {!subtarea.editando && <div className="botones">
                                         <select className="custom-select" value={subtarea.estado} onChange={e => {
                                             handleChange(subtarea.id, e)
                                         }}>
-                                            <option value="0">Por hacer</option>
-                                            <option value="1">En curso</option>
-                                            <option value="2">Finalizada</option>
+                                            <option disabled value="0">Por hacer</option>
+                                            <option disabled value="1">En curso</option>
+                                            <option disabled value="2">Finalizada</option>
                                         </select>
                                         <button className="removeButton" onClick={() => {
                                             handleRemoveSubTarea(id, subtarea.id)
                                         }}> <i className="fa fa-trash" aria-hidden="true"></i>
                                             Eliminar</button>
                                         <button className="editButton" onClick={() => {
-                                            handleEditSubTarea(id, subtarea.id)
+                                            handleEditSubTarea(id, subtarea.id, subtarea.titulo, subtarea.notas, subtarea.estado)
                                         }}> <i className="fa fa-pencil" aria-hidden="true"></i>
                                             Editar</button>
                                     </div>}
@@ -364,12 +434,13 @@ export default function ListaDeTareas() {
                             )}
                         </div>
                         <div className="botones">
+
                             <select className="custom-select" value={estado} onChange={e => {
                                 handleChange(id, e)
                             }}>
-                                <option value="0">Por hacer</option>
-                                <option value="1">En curso</option>
-                                <option value="2">Finalizada</option>
+                                <option disabled value="0">Por hacer</option>
+                                <option disabled value="1">En curso</option>
+                                <option disabled value="2">Finalizada</option>
                             </select>
                             <button className="removeButton" onClick={() => {
                                 handleRemove(id)
